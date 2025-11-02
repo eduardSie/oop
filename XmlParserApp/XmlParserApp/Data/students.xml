@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="students.xsl"?>
+<University>
+	<Students>
+		<!-- Студент з 3 атрибутами -->
+		<Student faculty="Комп'ютерних наук" department="ПЗ" semester="Весна 2024">
+			<FullName>Іваненко Іван Іванович</FullName>
+			<Subject>Програмування</Subject>
+			<Grade>95</Grade>
+			<Year>2024</Year>
+		</Student>
+
+		<!-- Студент з 2 атрибутами (різна кількість!) -->
+		<Student faculty="Комп'ютерних наук" department="ІПЗ">
+			<FullName>Петренко Петро Петрович</FullName>
+			<Subject>Бази даних</Subject>
+			<Grade>88</Grade>
+			<Year>2024</Year>
+			<Semester>Осінь 2024</Semester>
+		</Student>
+
+		<!-- Студент з 4 атрибутами -->
+		<Student faculty="Математики" department="ПМ" semester="Весна 2024" course="2">
+			<FullName>Сидоренко Марія Олександрівна</FullName>
+			<Subject>Алгоритми</Subject>
+			<Grade>92</Grade>
+			<Year>2024</Year>
+		</Student>
+
+		<!-- Студент з 2 атрибутами -->
+		<Student faculty="Комп'ютерних наук" semester="Осінь 2024">
+			<FullName>Коваленко Олена Сергіївна</FullName>
+			<Subject>Веб-розробка</Subject>
+			<Grade>85</Grade>
+			<Year>2024</Year>
+			<Department>ПЗ</Department>
+		</Student>
+
+		<!-- Студент з 3 атрибутами -->
+		<Student faculty="Математики" department="ПМ" course="3">
+			<FullName>Бондаренко Андрій Васильович</FullName>
+			<Subject>Дискретна математика</Subject>
+			<Grade>90</Grade>
+			<Year>2024</Year>
+			<Semester>Весна 2024</Semester>
+		</Student>
+
+		<!-- Студент з 1 атрибутом -->
+		<Student faculty="Комп'ютерних наук">
+			<FullName>Мельник Віктор Іванович</FullName>
+			<Subject>Операційні системи</Subject>
+			<Grade>78</Grade>
+			<Year>2024</Year>
+			<Department>ІПЗ</Department>
+			<Semester>Весна 2024</Semester>
+		</Student>
+
+		<!-- Студент з 4 атрибутами -->
+		<Student faculty="Фізики" department="ТФ" semester="Осінь 2024" course="1">
+			<FullName>Шевченко Наталія Петрівна</FullName>
+			<Subject>Фізика</Subject>
+			<Grade>87</Grade>
+			<Year>2024</Year>
+		</Student>
+
+		<!-- Студент з 2 атрибутами -->
+		<Student department="ПЗ" semester="Весна 2024">
+			<FullName>Гриценко Дмитро Олегович</FullName>
+			<Subject>Мобільна розробка</Subject>
+			<Grade>93</Grade>
+			<Year>2024</Year>
+			<Faculty>Комп'ютерних наук</Faculty>
+		</Student>
+	</Students>
+</University>

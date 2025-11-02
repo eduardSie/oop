@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XmlParserApp.MainPage"
+             Title="XML Parser - Обробка файлів XML">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- Заголовок -->
+            <Label Text="Обробка XML файлів"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,20"/>
+
+            <!-- Вибір файлу -->
+            <Frame BorderColor="LightGray" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Файл XML:" FontAttributes="Bold"/>
+                    <HorizontalStackLayout Spacing="10">
+                        <Entry x:Name="FilePathEntry" 
+                               Placeholder="Виберіть файл..."
+                               IsReadOnly="True"
+                               HorizontalOptions="FillAndExpand"/>
+                        <Button Text="Вибрати" 
+                                Clicked="OnSelectFileClicked"
+                                WidthRequest="100"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Вибір стратегії парсингу -->
+            <Frame BorderColor="LightGray" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Метод парсингу:" FontAttributes="Bold"/>
+                    <Picker x:Name="StrategyPicker" Title="Оберіть метод">
+                        <Picker.Items>
+                            <x:String>SAX (XmlReader)</x:String>
+                            <x:String>DOM (XmlDocument)</x:String>
+                            <x:String>LINQ to XML</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Критерії пошуку -->
+            <Frame BorderColor="LightGray" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Критерії пошуку:" FontAttributes="Bold"/>
+
+                    <!-- Факультет -->
+                    <Label Text="Факультет:"/>
+                    <Picker x:Name="FacultyPicker" 
+                            Title="Виберіть факультет"
+                            SelectedIndexChanged="OnFacultyChanged"/>
+
+                    <!-- Кафедра -->
+                    <Label Text="Кафедра:"/>
+                    <Picker x:Name="DepartmentPicker" 
+                            Title="Виберіть кафедру"
+                            SelectedIndexChanged="OnDepartmentChanged"/>
+
+                    <!-- Семестр -->
+                    <Label Text="Семестр:"/>
+                    <Picker x:Name="SemesterPicker" 
+                            Title="Виберіть семестр"
+                            SelectedIndexChanged="OnSemesterChanged"/>
+
+                    <!-- Предмет -->
+                    <Label Text="Предмет:"/>
+                    <Picker x:Name="SubjectPicker" 
+                            Title="Виберіть предмет"
+                            SelectedIndexChanged="OnSubjectChanged"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Кнопки дій -->
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                <Button Grid.Column="0"
+                        Text="Пошук"
+                        Clicked="OnSearchClicked"
+                        BackgroundColor="#2196F3"
+                        TextColor="White"/>
+                <Button Grid.Column="1"
+                        Text="XML → HTML"
+                        Clicked="OnTransformClicked"
+                        BackgroundColor="#4CAF50"
+                        TextColor="White"/>
+                <Button Grid.Column="2"
+                        x:Name="ClearButton"
+                        Text="Clear"
+                        Clicked="OnClearClicked"
+                        BackgroundColor="#FF5722"
+                        TextColor="White"/>
+            </Grid>
+
+            <!-- Результати -->
+            <Frame BorderColor="LightGray" CornerRadius="10" Padding="15" MinimumHeightRequest="300">
+                <VerticalStackLayout Spacing="10">
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="Результати:" FontAttributes="Bold" VerticalOptions="Center"/>
+                        <Label x:Name="ResultCountLabel" 
+                               Text="0 записів"
+                               TextColor="Gray"
+                               VerticalOptions="Center"/>
+                        <Label x:Name="ExecutionTimeLabel"
+                               Text=""
+                               TextColor="Gray"
+                               HorizontalOptions="EndAndExpand"
+                               VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+
+                    <ScrollView HeightRequest="250">
+                        <Editor x:Name="ResultsEditor"
+                                IsReadOnly="True"
+                                FontSize="14"
+                                BackgroundColor="#F5F5F5"/>
+                    </ScrollView>
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
