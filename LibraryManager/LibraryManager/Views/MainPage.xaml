@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LibraryManager.Views.MainPage"
+             Title="Диспетчер бібліотеки">
+
+    <Grid RowDefinitions="Auto,Auto,Auto,*,Auto" Padding="20">
+
+        <!-- Заголовок -->
+        <Label Grid.Row="0" 
+               Text="📚 Диспетчер бібліотеки"
+               FontSize="32"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               Margin="0,0,0,20"/>
+
+        <!-- Панель управління -->
+        <HorizontalStackLayout Grid.Row="1" Spacing="10" Margin="0,0,0,10" HorizontalOptions="Center">
+            <Button Text="Відкрити JSON" 
+                    Clicked="OnOpenClicked"
+                    BackgroundColor="#22C55E"/>
+            <Button Text="Зберегти JSON" 
+                    Clicked="OnSaveClicked"
+                    BackgroundColor="#3B82F6"/>
+            <Button Text="Додати книгу" 
+                    Clicked="OnAddClicked"
+                    BackgroundColor="#A855F7"/>
+            <Button Text="Демо-дані" 
+                    Clicked="OnLoadSampleClicked"
+                    BackgroundColor="#6B7280"/>
+        </HorizontalStackLayout>
+
+
+        <!-- Таблиця - ВАЖЛИВО: додано x:Name -->
+        <CollectionView Grid.Row="3" 
+                        x:Name="BooksCollection"
+                        SelectionMode="Single">
+            <CollectionView.Header>
+                <Grid Padding="10" 
+                      BackgroundColor="#4F46E5"
+                      ColumnDefinitions="200,200,100,100,100,100,Auto,Auto">
+                    <Label Grid.Column="0" Text="Назва" TextColor="White" FontAttributes="Bold"/>
+                    <Label Grid.Column="1" Text="Автор" TextColor="White" FontAttributes="Bold"/>
+                    <Label Grid.Column="2" Text="Рік" TextColor="White" FontAttributes="Bold"/>
+                    <Label Grid.Column="3" Text="Жанр" TextColor="White" FontAttributes="Bold"/>
+                    <Label Grid.Column="4" Text="Сторінок" TextColor="White" FontAttributes="Bold"/>
+                    <Label Grid.Column="5" Text="ISBN" TextColor="White" FontAttributes="Bold"/>
+                    <Label Grid.Column="6" Text="Дії" TextColor="White" FontAttributes="Bold" HorizontalOptions="Center"/>
+                </Grid>
+            </CollectionView.Header>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10" 
+                          ColumnDefinitions="200,200,100,100,100,100,Auto,Auto">
+
+                        <Label Grid.Column="0" 
+                               Text="{Binding Title}" 
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"/>
+
+                        <Label Grid.Column="1" 
+                               Text="{Binding Author}"
+                               VerticalOptions="Center"/>
+
+                        <Label Grid.Column="2" 
+                               Text="{Binding Year}"
+                               VerticalOptions="Center"/>
+
+                        <Label Grid.Column="3" 
+                               Text="{Binding Genre}"
+                               TextColor="Gray"
+                               VerticalOptions="Center"/>
+
+                        <Label Grid.Column="4" 
+                               Text="{Binding Pages}"
+                               VerticalOptions="Center"/>
+
+                        <Label Grid.Column="5" 
+                               Text="{Binding ISBN}"
+                               FontSize="12"
+                               VerticalOptions="Center"/>
+
+                        <Button Grid.Column="6"
+                                Text="✏️"
+                                Clicked="OnEditClicked"
+                                CommandParameter="{Binding .}"
+                                WidthRequest="50"
+                                HeightRequest="40"
+                                BackgroundColor="#3B82F6"
+                                TextColor="White"
+                                Margin="5,0"/>
+
+                        <Button Grid.Column="7"
+                                Text="🗑️"
+                                Clicked="OnDeleteClicked"
+                                CommandParameter="{Binding .}"
+                                BackgroundColor="#EF4444"
+                                TextColor="White"
+                                WidthRequest="50"
+                                HeightRequest="40"
+                                Margin="5,0"/>
+
+                        <BoxView Grid.ColumnSpan="8"
+                                 HeightRequest="1"
+                                 Color="LightGray"
+                                 VerticalOptions="End"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <CollectionView.EmptyView>
+                <ContentView>
+                    <StackLayout Padding="50" VerticalOptions="Center" HorizontalOptions="Center">
+                        <Label Text="📚" FontSize="48" HorizontalOptions="Center"/>
+                        <Label Text="Немає даних" 
+                               FontSize="20" 
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               Margin="0,10,0,5"/>
+                        <Label Text="Завантажте JSON файл або створіть демо-дані" 
+                               TextColor="Gray"
+                               HorizontalOptions="Center"/>
+                    </StackLayout>
+                </ContentView>
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+        <!-- Статус-бар -->
+        <Label Grid.Row="4" 
+               x:Name="StatusLabel"
+               Text="Готово до роботи"
+               HorizontalOptions="Center"
+               Margin="0,10,0,0"
+               TextColor="Gray"/>
+    </Grid>
+</ContentPage>
