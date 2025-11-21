@@ -180,32 +180,62 @@ public partial class MainPage : ContentPage
 
         try
         {
-            // Запитуємо XSL файл
+            // Сначала выполняем поиск с текущими критериями
+            IXmlParsingStrategy strategy = StrategyPicker.SelectedIndex switch
+            {
+                0 => new SaxParsingStrategy(),
+                1 => new DomParsingStrategy(),
+                2 => new LinqToXmlParsingStrategy(),
+                _ => new LinqToXmlParsingStrategy()
+            };
+
+            _parserContext.SetStrategy(strategy);
+            var results = _parserContext.ExecuteParsing(_currentXmlFile, _searchCriteria);
+
+            if (results.Count == 0)
+            {
+                var proceed = await DisplayAlert(
+                    "Попередження",
+                    "За заданими критеріями не знайдено жодного запису. Трансформувати весь файл?",
+                    "Так",
+                    "Ні");
+
+                if (!proceed)
+                    return;
+
+                // Если пользователь согласен, получаем все записи
+                results = _parserContext.ExecuteParsing(_currentXmlFile, new Dictionary<string, string>());
+            }
+
+            // Запрашиваем XSL файл
             var xslResult = await FilePicker.PickAsync(new PickOptions
             {
                 FileTypes = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
-                {
-                    { DevicePlatform.WinUI, new[] { ".xsl", ".xslt" } },
-                    { DevicePlatform.macOS, new[] { "xsl", "xslt" } }
-                }),
+            {
+                { DevicePlatform.WinUI, new[] { ".xsl", ".xslt" } },
+                { DevicePlatform.macOS, new[] { "xsl", "xslt" } },
+                { DevicePlatform.iOS, new[] { "public.xsl" } },
+                { DevicePlatform.Android, new[] { "text/xml" } }
+            }),
                 PickerTitle = "Виберіть XSL файл"
             });
 
             if (xslResult == null)
                 return;
 
-            // Створюємо вихідний HTML файл
+            // Создаем выходной HTML файл
             string outputPath = Path.Combine(
                 Path.GetDirectoryName(_currentXmlFile),
                 "output_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".html");
 
             var stopwatch = Stopwatch.StartNew();
-            _xslTransformer.TransformToHtml(_currentXmlFile, xslResult.FullPath, outputPath);
+            // Передаем отфильтрованные результаты вместо целого файла
+            _xslTransformer.TransformToHtml(results, xslResult.FullPath, outputPath);
             stopwatch.Stop();
 
             var openFile = await DisplayAlert(
                 "Успіх",
-                $"HTML файл створено!\nШлях: {outputPath}\nЧас: {stopwatch.ElapsedMilliseconds} мс\n\nВідкрити файл?",
+                $"HTML файл створено з {results.Count} записів!\nШлях: {outputPath}\nЧас: {stopwatch.ElapsedMilliseconds} мс\n\nВідкрити файл?",
                 "Так",
                 "Ні");
 
