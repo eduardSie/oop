@@ -111,12 +111,13 @@
                                VerticalOptions="Center"/>
                     </HorizontalStackLayout>
 
-                    <ScrollView HeightRequest="250">
-                        <Editor x:Name="ResultsEditor"
-                                IsReadOnly="True"
-                                FontSize="14"
-                                BackgroundColor="#F5F5F5"/>
-                    </ScrollView>
+                    <Editor x:Name="ResultsEditor"
+                        HeightRequest="400" 
+                        AutoSize="Disabled"
+                        IsReadOnly="True"
+                        FontSize="14"
+                        TextColor="Black" 
+                        BackgroundColor="#F5F5F5"/>
                 </VerticalStackLayout>
             </Frame>
 
