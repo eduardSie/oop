@@ -129,6 +129,11 @@ namespace LibraryManager
             label.SetValue(Microsoft.Maui.Controls.Grid.RowProperty, row);
             label.SetValue(Microsoft.Maui.Controls.Grid.ColumnProperty, column);
             BooksGrid.Children.Add(label);
+
+            // Alternative: attach gesture to label (instead of InputTransparent)
+            var tap = new TapGestureRecognizer();
+            tap.Tapped += (s,e) => OnRowTapped(row, _filteredBooks[row - 2]); // compute book index accordingly
+            label.GestureRecognizers.Add(tap);
         }
 
         // Обробка кліку на рядок

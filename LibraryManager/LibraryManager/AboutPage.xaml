@@ -123,7 +123,7 @@
                     Margin="0,20,0,0"/>
 
             <!-- Копірайт -->
-            <Label Text="© 2024 Library Manager. Всі права захищені." 
+            <Label Text="© 2025 Library Manager. Всі права захищені." 
                    FontSize="12" 
                    TextColor="#999999"
                    HorizontalOptions="Center"
