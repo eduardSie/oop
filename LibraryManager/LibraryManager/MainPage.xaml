@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LibraryManager.MainPage"
+             Title="Менеджер бібліотеки книг">
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="10">
+
+        <!-- Рядок 0: Кнопки керування файлами -->
+        <HorizontalStackLayout Grid.Row="0" Spacing="10" Margin="0,0,0,10">
+            <Button Text="📂 Відкрити JSON" 
+                    Clicked="OnOpenFileClicked"
+                    BackgroundColor="#2196F3"
+                    TextColor="White"/>
+            <Button Text="💾 Зберегти" 
+                    Clicked="OnSaveFileClicked"
+                    BackgroundColor="#4CAF50"
+                    TextColor="White"/>
+            <Button Text="📤 Експорт" 
+                    Clicked="OnExportFileClicked"
+                    BackgroundColor="#FF9800"
+                    TextColor="White"/>
+            <Button Text="ℹ️ Про програму" 
+                    Clicked="OnAboutClicked"
+                    BackgroundColor="#9C27B0"
+                    TextColor="White"/>
+        </HorizontalStackLayout>
+
+        <!-- Рядок 1: Пошук -->
+        <Grid Grid.Row="1" ColumnDefinitions="*,Auto,Auto,Auto" ColumnSpacing="5" Margin="0,0,0,10">
+            <Entry x:Name="SearchEntry" 
+                   Grid.Column="0"
+                   Placeholder="🔍 Пошук за назвою, автором або жанром..."
+                   TextChanged="OnSearchTextChanged"/>
+            <Picker x:Name="GenrePicker" 
+                    Grid.Column="1"
+                    Title="Жанр"
+                    SelectedIndexChanged="OnGenreFilterChanged"
+                    WidthRequest="150"/>
+            <Entry x:Name="YearFromEntry" 
+                   Grid.Column="2"
+                   Placeholder="Рік від"
+                   Keyboard="Numeric"
+                   TextChanged="OnYearFilterChanged"
+                   WidthRequest="80"/>
+            <Entry x:Name="YearToEntry" 
+                   Grid.Column="3"
+                   Placeholder="до"
+                   Keyboard="Numeric"
+                   TextChanged="OnYearFilterChanged"
+                   WidthRequest="80"/>
+        </Grid>
+
+        <!-- Рядок 2: Таблиця Grid -->
+        <Border Grid.Row="2" 
+                Stroke="#CCCCCC" 
+                StrokeThickness="1"
+                BackgroundColor="White">
+            <ScrollView Orientation="Both">
+                <Grid x:Name="BooksGrid" 
+                      RowSpacing="0" 
+                      ColumnSpacing="0"
+                      Padding="0">
+                    <!-- Визначення колонок -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <!-- ID -->
+                        <ColumnDefinition Width="250"/>
+                        <!-- Назва -->
+                        <ColumnDefinition Width="200"/>
+                        <!-- Автор -->
+                        <ColumnDefinition Width="80"/>
+                        <!-- Рік -->
+                        <ColumnDefinition Width="150"/>
+                        <!-- Жанр -->
+                        <ColumnDefinition Width="150"/>
+                        <!-- ISBN -->
+                        <ColumnDefinition Width="80"/>
+                        <!-- Сторінки -->
+                        <ColumnDefinition Width="200"/>
+                        <!-- Видавництво -->
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Визначення рядків: 0 - заголовок, 1 - лінія -->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45"/>
+                        <!-- Заголовок -->
+                        <RowDefinition Height="2"/>
+                        <!-- Лінія -->
+                    </Grid.RowDefinitions>
+
+                    <!-- Заголовок таблиці (Рядок 0) -->
+                    <BoxView Grid.Row="0" Grid.ColumnSpan="8" BackgroundColor="#1976D2"/>
+
+                    <Label Grid.Row="0" Grid.Column="0" 
+                           Text="ID" 
+                           FontAttributes="Bold" 
+                           TextColor="White" 
+                           Padding="10"
+                           VerticalOptions="Center"/>
+                    <Label Grid.Row="0" Grid.Column="1" 
+                           Text="Назва книги" 
+                           FontAttributes="Bold" 
+                           TextColor="White" 
+                           Padding="10"
+                           VerticalOptions="Center"/>
+                    <Label Grid.Row="0" Grid.Column="2" 
+                           Text="Автор" 
+                           FontAttributes="Bold" 
+                           TextColor="White" 
+                           Padding="10"
+                           VerticalOptions="Center"/>
+                    <Label Grid.Row="0" Grid.Column="3" 
+                           Text="Рік" 
+                           FontAttributes="Bold" 
+                           TextColor="White" 
+                           Padding="10"
+                           VerticalOptions="Center"/>
+                    <Label Grid.Row="0" Grid.Column="4" 
+                           Text="Жанр" 
+                           FontAttributes="Bold" 
+                           TextColor="White" 
+                           Padding="10"
+                           VerticalOptions="Center"/>
+                    <Label Grid.Row="0" Grid.Column="5" 
+                           Text="ISBN" 
+                           FontAttributes="Bold" 
+                           TextColor="White" 
+                           Padding="10"
+                           VerticalOptions="Center"/>
+                    <Label Grid.Row="0" Grid.Column="6" 
+                           Text="Стор." 
+                           FontAttributes="Bold" 
+                           TextColor="White" 
+                           Padding="10"
+                           VerticalOptions="Center"/>
+                    <Label Grid.Row="0" Grid.Column="7" 
+                           Text="Видавництво" 
+                           FontAttributes="Bold" 
+                           TextColor="White" 
+                           Padding="10"
+                           VerticalOptions="Center"/>
+
+                    <!-- Роздільна лінія під заголовком -->
+                    <BoxView Grid.Row="1" Grid.ColumnSpan="8" 
+                             BackgroundColor="#1976D2"/>
+                </Grid>
+            </ScrollView>
+        </Border>
+
+        <!-- Рядок 3: Кнопки керування даними -->
+        <HorizontalStackLayout Grid.Row="3" Spacing="10" Margin="0,10,0,0">
+            <Button Text="➕ Додати книгу" 
+                    Clicked="OnAddBookClicked"
+                    BackgroundColor="#4CAF50"
+                    TextColor="White"/>
+            <Button Text="✏️ Редагувати" 
+                    Clicked="OnEditBookClicked"
+                    BackgroundColor="#2196F3"
+                    TextColor="White"/>
+            <Button Text="🗑️ Видалити" 
+                    Clicked="OnDeleteBookClicked"
+                    BackgroundColor="#F44336"
+                    TextColor="White"/>
+            <Label x:Name="StatusLabel" 
+                   VerticalOptions="Center"
+                   Margin="20,0,0,0"
+                   FontSize="14"
+                   FontAttributes="Bold"
+                   TextColor="#2196F3"/>
+        </HorizontalStackLayout>
+    </Grid>
+
+</ContentPage>

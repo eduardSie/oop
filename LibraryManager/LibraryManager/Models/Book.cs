@@ -19,31 +19,36 @@ namespace LibraryManager.Models
         [JsonPropertyName("genre")]
         public string Genre { get; set; } = string.Empty;
 
+        [JsonPropertyName("isbn")]
+        public string Isbn { get; set; } = string.Empty;
+
         [JsonPropertyName("pages")]
         public int Pages { get; set; }
 
-        [JsonPropertyName("isbn")]
-        public string ISBN { get; set; } = string.Empty;
+        [JsonPropertyName("publisher")]
+        public string Publisher { get; set; } = string.Empty;
 
-        [JsonPropertyName("available")]
-        public bool Available { get; set; }
-    }
+        // Конструктор за замовчуванням
+        public Book() { }
 
-    public class LibraryData
-    {
-        [JsonPropertyName("books")]
-        public List<Book> Books { get; set; } = new();
+        // Конструктор для зручності створення нових книг
+        public Book(int id, string title, string author, int year, string genre,
+                    string isbn, int pages, string publisher)
+        {
+            Id = id;
+            Title = title;
+            Author = author;
+            Year = year;
+            Genre = genre;
+            Isbn = isbn;
+            Pages = pages;
+            Publisher = publisher;
+        }
 
-        [JsonPropertyName("metadata")]
-        public Metadata? Metadata { get; set; }
-    }
-
-    public class Metadata
-    {
-        [JsonPropertyName("count")]
-        public int Count { get; set; }
-
-        [JsonPropertyName("date")]
-        public DateTime Date { get; set; }
+        // Для зручного відображення у Grid
+        public override string ToString()
+        {
+            return $"{Title} - {Author} ({Year})";
+        }
     }
 }

@@ -5,57 +5,82 @@ namespace LibraryManager.Services
 {
     public class JsonService
     {
-        public async Task<List<Book>> LoadBooksAsync(string filePath)
-        {
-            try
-            {
-                var json = await File.ReadAllTextAsync(filePath);
-                var data = JsonSerializer.Deserialize<LibraryData>(json);
-                return data?.Books ?? new List<Book>();
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error loading: {ex.Message}");
-                return new List<Book>();
-            }
-        }
+        private readonly JsonSerializerOptions _options;
 
-        public async Task<bool> SaveBooksAsync(List<Book> books, string filePath)
+        public JsonService()
         {
-            try
+            _options = new JsonSerializerOptions
             {
-                var data = new LibraryData
-                {
-                    Books = books,
-                    Metadata = new Metadata
-                    {
-                        Count = books.Count,
-                        Date = DateTime.Now
-                    }
-                };
-
-                var options = new JsonSerializerOptions { WriteIndented = true };
-                var json = JsonSerializer.Serialize(data, options);
-                await File.WriteAllTextAsync(filePath, json);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error saving: {ex.Message}");
-                return false;
-            }
-        }
-
-        public List<Book> GetSampleData()
-        {
-            return new List<Book>
-            {
-                new Book { Id = 1, Title = "Кобзар", Author = "Тарас Шевченко", Year = 1840, Genre = "Поезія", Pages = 240, ISBN = "978-966-03-1234-5", Available = true },
-                new Book { Id = 2, Title = "Тіні забутих предків", Author = "Михайло Коцюбинський", Year = 1911, Genre = "Повість", Pages = 128, ISBN = "978-966-03-2345-6", Available = true },
-                new Book { Id = 3, Title = "Захар Беркут", Author = "Іван Франко", Year = 1883, Genre = "Історичний роман", Pages = 320, ISBN = "978-966-03-3456-7", Available = false },
-                new Book { Id = 4, Title = "Лісова пісня", Author = "Леся Українка", Year = 1911, Genre = "Драма", Pages = 96, ISBN = "978-966-03-4567-8", Available = true },
-                new Book { Id = 5, Title = "Собор", Author = "Олесь Гончар", Year = 1968, Genre = "Роман", Pages = 456, ISBN = "978-966-03-5678-9", Available = true }
+                WriteIndented = true,
+                PropertyNameCaseInsensitive = true,
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
             };
+        }
+
+        // Десеріалізація - читання з JSON файлу
+        public async Task<List<Book>> LoadBooksFromFileAsync(string filePath)
+        {
+            try
+            {
+                if (!File.Exists(filePath))
+                {
+                    return new List<Book>();
+                }
+
+                using var stream = File.OpenRead(filePath);
+                var books = await JsonSerializer.DeserializeAsync<List<Book>>(stream, _options);
+                return books ?? new List<Book>();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Помилка при читанні файлу: {ex.Message}", ex);
+            }
+        }
+
+        // Серіалізація - збереження у JSON файл
+        public async Task SaveBooksToFileAsync(string filePath, List<Book> books)
+        {
+            try
+            {
+                using var stream = File.Create(filePath);
+                await JsonSerializer.SerializeAsync(stream, books, _options);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Помилка при збереженні файлу: {ex.Message}", ex);
+            }
+        }
+
+        // Експорт у новий файл
+        public async Task ExportBooksAsync(string filePath, List<Book> books)
+        {
+            await SaveBooksToFileAsync(filePath, books);
+        }
+
+        // Десеріалізація з рядка JSON
+        public List<Book> DeserializeBooks(string json)
+        {
+            try
+            {
+                return JsonSerializer.Deserialize<List<Book>>(json, _options) ?? new List<Book>();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Помилка десеріалізації: {ex.Message}", ex);
+            }
+        }
+
+        // Серіалізація у рядок JSON
+        public string SerializeBooks(List<Book> books)
+        {
+            try
+            {
+                return JsonSerializer.Serialize(books, _options);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Помилка серіалізації: {ex.Message}", ex);
+            }
         }
     }
 }

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LibraryManager.BookEditPage"
+             Title="Редагування книги">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Інформація про книгу" 
+                   FontSize="24" 
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,20"/>
+
+            <!-- Назва -->
+            <Frame BorderColor="#2196F3" Padding="10">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Назва книги *" FontAttributes="Bold" TextColor="#2196F3"/>
+                    <Entry x:Name="TitleEntry" 
+                           Placeholder="Введіть назву книги"
+                           BackgroundColor="Transparent"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Автор -->
+            <Frame BorderColor="#2196F3" Padding="10">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Автор *" FontAttributes="Bold" TextColor="#2196F3"/>
+                    <Entry x:Name="AuthorEntry" 
+                           Placeholder="Введіть ім'я автора"
+                           BackgroundColor="Transparent"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Рік видання -->
+            <Frame BorderColor="#2196F3" Padding="10">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Рік видання *" FontAttributes="Bold" TextColor="#2196F3"/>
+                    <Entry x:Name="YearEntry" 
+                           Placeholder="Наприклад: 2023"
+                           Keyboard="Numeric"
+                           BackgroundColor="Transparent"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Жанр -->
+            <Frame BorderColor="#2196F3" Padding="10">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Жанр *" FontAttributes="Bold" TextColor="#2196F3"/>
+                    <Entry x:Name="GenreEntry" 
+                           Placeholder="Наприклад: Поезія, Роман, Повість"
+                           BackgroundColor="Transparent"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- ISBN -->
+            <Frame BorderColor="#2196F3" Padding="10">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="ISBN *" FontAttributes="Bold" TextColor="#2196F3"/>
+                    <Entry x:Name="IsbnEntry" 
+                           Placeholder="Наприклад: 978-966-03-4829-7"
+                           BackgroundColor="Transparent"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Кількість сторінок -->
+            <Frame BorderColor="#2196F3" Padding="10">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Кількість сторінок *" FontAttributes="Bold" TextColor="#2196F3"/>
+                    <Entry x:Name="PagesEntry" 
+                           Placeholder="Введіть кількість сторінок"
+                           Keyboard="Numeric"
+                           BackgroundColor="Transparent"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Видавництво -->
+            <Frame BorderColor="#2196F3" Padding="10">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Видавництво *" FontAttributes="Bold" TextColor="#2196F3"/>
+                    <Entry x:Name="PublisherEntry" 
+                           Placeholder="Введіть назву видавництва"
+                           BackgroundColor="Transparent"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Кнопки -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Margin="0,20,0,0">
+                <Button Grid.Column="0"
+                        Text="💾 Зберегти" 
+                        Clicked="OnSaveClicked"
+                        BackgroundColor="#4CAF50"
+                        TextColor="White"
+                        HeightRequest="50"/>
+                <Button Grid.Column="1"
+                        Text="❌ Скасувати" 
+                        Clicked="OnCancelClicked"
+                        BackgroundColor="#F44336"
+                        TextColor="White"
+                        HeightRequest="50"/>
+            </Grid>
+
+            <Label Text="* - обов'язкові поля" 
+                   FontSize="12" 
+                   TextColor="#999999"
+                   HorizontalOptions="Center"
+                   Margin="0,10,0,0"/>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

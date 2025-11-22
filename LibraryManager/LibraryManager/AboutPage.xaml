@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LibraryManager.AboutPage"
+             Title="Про програму">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="20">
+
+            <!-- Іконка -->
+            <Label Text="📚" 
+                   FontSize="80"
+                   HorizontalOptions="Center"/>
+
+            <!-- Назва програми -->
+            <Label Text="Менеджер бібліотеки книг" 
+                   FontSize="28" 
+                   FontAttributes="Bold"
+                   TextColor="#222222"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"/>
+
+            <!-- Версія -->
+            <Label Text="Версія 1.0.0" 
+                   FontSize="16" 
+                   TextColor="#666666"
+                   HorizontalOptions="Center"/>
+
+            <!-- Роздільник -->
+            <BoxView HeightRequest="1" 
+                     BackgroundColor="#CCCCCC" 
+                     Margin="0,10,0,10"/>
+
+            <!-- Інформація про розробника -->
+            <Frame BorderColor="#2196F3" 
+                   BackgroundColor="#E3F2FD" 
+                   Padding="20"
+                   CornerRadius="10">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="👤 Розробник" 
+                           FontSize="18" 
+                           FontAttributes="Bold"
+                           TextColor="#2196F3"
+                           Margin="0,0,0,6"/>
+
+                    <!-- Use explicit RowDefinitions so rows size properly -->
+                    <Grid ColumnDefinitions="Auto,*"
+                          RowDefinitions="Auto,Auto,Auto,Auto"
+                          RowSpacing="8"
+                          ColumnSpacing="10"
+                          Margin="0">
+                        <Label Grid.Row="0" Grid.Column="0" Text="ПІБ:" FontAttributes="Bold" TextColor="#222222" VerticalOptions="Center"/>
+                        <Label Grid.Row="0" Grid.Column="1" Text="Сєров Едуард Олегович" TextColor="#222222" VerticalOptions="Center" LineBreakMode="TailTruncation"/>
+
+                        <Label Grid.Row="1" Grid.Column="0" Text="Курс:" FontAttributes="Bold" TextColor="#222222" VerticalOptions="Center"/>
+                        <Label Grid.Row="1" Grid.Column="1" Text="2" TextColor="#222222" VerticalOptions="Center" LineBreakMode="TailTruncation"/>
+
+                        <Label Grid.Row="2" Grid.Column="0" Text="Група:" FontAttributes="Bold" TextColor="#222222" VerticalOptions="Center"/>
+                        <Label Grid.Row="2" Grid.Column="1" Text="К-26" TextColor="#222222" VerticalOptions="Center" LineBreakMode="TailTruncation"/>
+
+                        <Label Grid.Row="3" Grid.Column="0" Text="Рік:" FontAttributes="Bold" TextColor="#222222" VerticalOptions="Center"/>
+                        <Label Grid.Row="3" Grid.Column="1" Text="2025" TextColor="#222222" VerticalOptions="Center" LineBreakMode="TailTruncation"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Опис програми -->
+            <Frame BorderColor="#4CAF50" 
+                   BackgroundColor="#E8F5E9" 
+                   Padding="20"
+                   CornerRadius="10">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="📋 Опис програми" 
+                           FontSize="18" 
+                           FontAttributes="Bold"
+                           TextColor="#4CAF50"/>
+
+                    <Label TextType="Html" TextColor="#222222">
+                        <Label.Text>
+                            <![CDATA[
+                            <p><b>Менеджер бібліотеки книг</b> - це застосунок для управління колекцією книг з використанням JSON формату даних.</p>
+                            
+                            <p><b>Основні можливості:</b></p>
+                            <ul>
+                                <li>Відкриття та збереження JSON файлів</li>
+                                <li>Додавання, редагування та видалення книг</li>
+                                <li>Пошук за назвою, автором та жанром</li>
+                                <li>Фільтрація за жанром та роком видання</li>
+                                <li>Експорт даних у новий файл</li>
+                                <li>Серіалізація/десеріалізація JSON</li>
+                            </ul>
+                            
+                            <p><b>Технології:</b> .NET MAUI, C#, System.Text.Json, LINQ</p>
+                            ]]>
+                        </Label.Text>
+                    </Label>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Лабораторна робота -->
+            <Frame BorderColor="#FF9800" 
+                   BackgroundColor="#FFF3E0" 
+                   Padding="20"
+                   CornerRadius="10">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="🎓 Лабораторна робота" 
+                           FontSize="18" 
+                           FontAttributes="Bold"
+                           TextColor="#FF9800"/>
+
+                    <Label Text="Лабораторна робота № 3" FontAttributes="Bold" TextColor="#222222"/>
+                    <Label Text="Тема: Розробка програм обробки файлів у форматі JSON (Диспетчер для JSON)" TextColor="#222222"/>
+                    <Label Text="Предметна область: Менеджер бібліотеки книг" TextColor="#222222"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Кнопка закриття -->
+            <Button Text="✓ Закрити" 
+                    Clicked="OnCloseClicked"
+                    BackgroundColor="#2196F3"
+                    TextColor="White"
+                    HeightRequest="50"
+                    Margin="0,20,0,0"/>
+
+            <!-- Копірайт -->
+            <Label Text="© 2024 Library Manager. Всі права захищені." 
+                   FontSize="12" 
+                   TextColor="#999999"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   Margin="0,10,0,0"/>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
